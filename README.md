@@ -1,5 +1,11 @@
 # node-alarmdecoder
 Node.JS client for listening and parsing AlarmDecoder events over ser2sock
+Easily control and monitor DSC and Ademco / Honeywell Vista alarm systems with a PC, HA system, PLC or embedded device.
+
+This project was created for my own purpose: monitoring and controlling my DSC home alarm system, paired with Raspberry PI and AlarmDecoder AD2PI.
+
+AlarmDecoder products:
+https://www.alarmdecoder.com/catalog/index.php
 
 **Documentation is Work In Progress**
 
