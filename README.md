@@ -1,5 +1,6 @@
 # node-alarmdecoder
-Node.JS client for listening and parsing AlarmDecoder events over ser2sock
+Node.JS client for listening and parsing AlarmDecoder events over ser2sock.
+
 Easily control and monitor DSC and Ademco / Honeywell Vista alarm systems with a PC, HA system, PLC or embedded device.
 
 This project was created for my own purpose: monitoring and controlling my DSC home alarm system, paired with Raspberry PI and AlarmDecoder AD2PI.
@@ -18,9 +19,9 @@ npm install node-alarmdecoder
 Usage
 -----
 AlarmDecoder emits 4 events:
-1. 'connected' - Successfully connected to AlarmDecoder ser2sock interface
-2. 'disconnected' - You shall know
-3. 'zoneChanged' - Zone status has been changed. Scroll down to output example. 
+* 'connected' - Successfully connected to AlarmDecoder ser2sock interface
+* 'disconnected' - You shall know
+* 'zoneChanged' - Zone status has been changed. Scroll down to output example. 
 "state": 1 = movement started, door opened or there's a fire, 0 = movement stopped, door closed or no more fire, yay!
 Example in case of Front Door is opened:
 ```json
@@ -32,8 +33,10 @@ Example in case of Front Door is opened:
   "state": 1
 }
 ```
-4. 'keypadMessage' - Keypad message events / panel status bits. To be documented.
+* 'keypadMessage' - Keypad message events / panel status bits. To be documented.
 
+And currently one method:
+* enterCode(code) - You can use this to arm/disarm your panel with the code specified
 
 ## Usage example
 ```javascript
