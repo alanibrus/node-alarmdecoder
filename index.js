@@ -163,6 +163,7 @@ class AlarmDecoder {
   }
 
   keypadMessage(numeric, keypadMessage) {
+    keypadMessage = keypadMessage || '';
     keypadMessage = keypadMessage.trim().replace(/\s\s+/g, ' ').replace(' "', '').replace('"', '');
     this.events.emit('keypadMessage', {
       numeric: numeric,
