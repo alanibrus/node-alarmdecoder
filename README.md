@@ -41,27 +41,27 @@ data = {
 ### keypadMessage(data)
 ```javascript
 data = {
-  message: 'Secure System Before Arming',
+  message: 'Secure System Before Arming', // System's message
   numeric: '000', //  Numeric Code: This number specifies which zone is affected by the message. For example, if this message is for CHECK ZONE 22 then the numeric code would be 022. Most of the time this is zero-padded base10, but there are rare occurrences where this may be base16, such as ECP bus failures. 
   bits: {
-    Ready: false,
-    'Armed Away': false,
-    'Armed Home': false,
-    'Backlight on': false,
-    Programming: false,
-    Beeps: 0,
-    'Zone bypassed': 0,
-    'AC power': true,
-    'Chime enabled': false,
-    'Alarm occured': false,
-    'Alarm on': false,
-    'Battery low': false,
-    'Entry delay off': false,
-    Fire: false,
-    'System issue': false,
-    'Watching perimeter': false,
-    'Error report': false,
-    'Device mode': 'DSC'
+    Ready: false, // Indicates if the panel is READY 
+    'Armed Away': false, // Indicates if the panel is ARMED AWAY
+    'Armed Home': false, // Indicates if the panel is ARMED HOME
+    'Backlight on': false, // Indicates if the keypad backlight is on 
+    Programming: false, // Indicates if the keypad is in programming mode 
+    Beeps: 0, // Number (1-7) indicating how many beeps are associated with the message 
+    'Zone bypassed': 0, // Indicates that a zone has been bypassed 
+    'AC power': true, // Indicates if the panel is on AC power 
+    'Chime enabled': false, // Indicates if the chime is enabled 
+    'Alarm occured': false, // Indicates that an alarm has occurred. This is sticky and will be cleared after a second disarm.
+    'Alarm on': false, // Indicates that an alarm is currently sounding. This is cleared after the first disarm. 
+    'Battery low': false, // Indicates that the battery is low
+    'Entry delay off': false, // Indicates that entry delay is off (ARMED INSTANT/MAX) 
+    Fire: false, // Indicates that there is a fire 
+    'System issue': false, // Indicates a system issue 
+    'Watching perimeter': false, // Indicates that the panel is only watching the perimeter (ARMED STAY/NIGHT) 
+    'Error report': false, // System specific bits. 4 bits packed into a HEX Nibble [0-9,A-F] 
+    'Device mode': 'DSC' // 'Ademco' or 'DSC' Mode
   }
 }
 ```
