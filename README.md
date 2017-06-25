@@ -68,7 +68,7 @@ data = {
 
 ## Example code
 ```javascript
-const AlarmDecoder = require('node-alarmdecoder');
+const alarmDecoder = require('node-alarmdecoder');
 const config = { 
   ip: 'alarmdecoder', 
   port: 10000,
