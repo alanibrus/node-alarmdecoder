@@ -1,6 +1,6 @@
 {
   "name": "node-alarmdecoder",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Node.JS client for listening and parsing AlarmDecoder events over ser2sock",
   "main": "index.js",
   "scripts": {
