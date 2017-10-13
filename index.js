@@ -1,7 +1,7 @@
 /**
  * 2017 Alan Ibrus (alanibrus@gmail.com)
+ * https://alan.ibrus.ee/
  */
-
 
 'use strict';
 const net = require('net');
@@ -10,25 +10,10 @@ const EventEmitter = require('events');
 class AlarmDecoder {
   constructor(ip, port, zoneConfig) {
     if (!zoneConfig || typeof zoneConfig !== 'object') {
-      throw new Error('No Zones configured');
+      console.warn('No Zones configured, debug mode activated (listening to zones)');
+      this.DEBUG_LISTEN_ZONES = true;
     }
-    /*
-      zoneConfig: {
-        // 'expander:channel': { name: 'String', type: 'contact/motion/fire' }
-        '00:01': {
-          name: 'Front door',
-          type: 'contact'
-        },
-        '00:02': {
-          name: 'Hallway',
-          type: 'motion'
-        },
-        '00:03': {
-          name: 'Sauna fire sensor',
-          type: 'fire'
-        }
-      }
-    */
+
     this.ip = ip || 'alarmdecoder';
     this.port = port || 10000;
     this.zones = zoneConfig;
@@ -127,7 +112,6 @@ class AlarmDecoder {
         const splitted = buffer.split(',');
         if (splitted.length <= 2) return; // FIXME: do something with unknown message
 
-
         // splitted[0] = bit field
         // splitted[1] = numeric code
         // splitted[2] = raw data
@@ -142,18 +126,22 @@ class AlarmDecoder {
   }
 
   zoneChanged(expander, channel, status) {
-    if (this.zones[expander + ':' + channel]) { // if we have this zone binded
+    status = (status == '00' ? 0 : 1);
+    if (this.zones && this.zones[expander + ':' + channel]) { // if we have this zone binded
       this.events.emit('zoneChanged', {
         zone: this.zones[expander + ':' + channel],
         state: (status == '00' ? 0 : 1)
       });
+    }
+    if (this.DEBUG_LISTEN_ZONES) {
+      console.log('DEBUG: Zone changed: ' + JSON.stringify({ expander, channel, status }));
     }
   }
 
   updateStatusBits(bitField) {
     for (let i in this.bits) {
       if (i === '6' || i === '7') {
-        this.bitStatus[i] = parseInt(bitField[i]);
+        this.bitStatus[i] = parseInt(bitField[i], 10);
       } else if (i === '18') {
         this.bitStatus[i] = (bitField[i] === 'D' ? 'DSC' : 'Ademco');
       } else {
@@ -172,8 +160,12 @@ class AlarmDecoder {
     });
   }
 
+  sendKeys(keys) {
+    this.client.write(keys);
+  }
+
   enterCode(code) {
-    this.client.write('#' + code);
+    this.sendKeys('#' + code);
   }
 }
 
